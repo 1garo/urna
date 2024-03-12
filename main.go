@@ -45,8 +45,8 @@ func (c *cache) GetMultiple(keys []string) []string {
 	}
 
 	return results
-
 }
+
 func (c *cache) Set(key, value string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -61,8 +61,17 @@ func (c *cache) SetMultiple(items map[string]string) {
 	}
 }
 
-//func (c *cache) Clear() {}
-//func (c *cache) Delete() {}
+func (c *cache) Clear() {
+	clear(c.data)
+}
+
+func (c *cache) Delete(key string) {
+	delete(c.data, key)
+}
+
+func (c *cache) Len() int {
+	return len(c.data)
+}
 
 func main() {
 	fmt.Println("hello world")
