@@ -38,9 +38,9 @@ func main() {
 	cache.Set("key", "value")
 
 	// Retrieve data from the cache
-	result, found := cache.Get("key")
-	if found {
-		fmt.Println("Value:", result)
+	result, ok := cache.Get("key")
+	if ok {
+		fmt.Println("Value: ", result)
 	} else {
 		fmt.Println("Key not found in the cache.")
 	}
