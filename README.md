@@ -32,7 +32,7 @@ import (
 
 func main() {
 	// Create a new cache with a default expiration time of 5 minutes
-	cache := urna.NewCache(5 * time.Minute)
+	cache := urna.NewCache()
 
 	// Add data to the cache
 	cache.Set("key", "value")
