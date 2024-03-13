@@ -11,6 +11,8 @@ import (
 4. clear() to clear all data from cache.
 5. Implement evicion strategy (cache replacement policies)
 */
+
+type Cache struct {}
 type cache struct {
 	mu sync.RWMutex
 	data map[string]string
