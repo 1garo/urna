@@ -12,12 +12,12 @@ import (
 5. Implement evicion strategy (cache replacement policies)
 */
 
-type Cache struct {}
 type cache struct {
 	mu sync.RWMutex
 	data map[string]string
 }
 
+// NewCache create a new *cache type
 func NewCache() *cache {
 	return &cache {
 		data: make(map[string]string, 0),
@@ -25,7 +25,7 @@ func NewCache() *cache {
 	}
 }
 
-// Get a value from cache
+// Get get value from cache
 func (c *cache) Get(key string) (string, bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
@@ -48,7 +48,7 @@ func (c *cache) GetMultiple(keys []string) []string {
 	return results
 }
 
-// Set a value into the cache
+// Set set a value into the cache
 func (c *cache) Set(key, value string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -69,7 +69,7 @@ func (c *cache) Clear() {
 	clear(c.data)
 }
 
-// Delete delete key-value cache
+// Delete delete key from cache
 func (c *cache) Delete(key string) {
 	delete(c.data, key)
 }
