@@ -12,15 +12,27 @@ import (
 5. Implement evicion strategy (cache replacement policies)
 */
 
+type MinHeap []*item
+
 type cache struct {
+	size int
 	mu sync.RWMutex
-	data map[string]string
+	data map[string]*item
+
+	minHeap *MinHeap
+}
+
+type item struct {
+	key string
+	value string
+	frequency int
+	index int
 }
 
 // NewCache create a new *cache type
 func NewCache() *cache {
 	return &cache {
-		data: make(map[string]string, 0),
+		data: make(map[string]*item, 0),
 		mu: sync.RWMutex{},
 	}
 }
