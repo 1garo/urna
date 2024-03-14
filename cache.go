@@ -1,6 +1,7 @@
 package urna
 
 import (
+	"container/heap"
 	"sync"
 )
 
@@ -13,6 +14,24 @@ import (
 */
 
 type MinHeap []*item
+// An MinHeap is a min-heap of ints.
+
+func (h MinHeap) Len() int           { return len(h) }
+func (h MinHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *MinHeap) Push(x any) {
+	// Push and Pop use pointer receivers because they modify the slice's length,
+	// not just its contents.
+	*h = append(*h, x.(*item))
+}
+
+func (h *MinHeap) Pop() *item {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
 
 type cache struct {
 	size int
@@ -31,6 +50,11 @@ type item struct {
 
 // NewCache create a new *cache type
 func NewCache() *cache {
+	var a MinHeap
+	var d map[string]*item
+	t := a.Pop()
+	delete(d, t.key)
+
 	return &cache {
 		data: make(map[string]*item, 0),
 		mu: sync.RWMutex{},
